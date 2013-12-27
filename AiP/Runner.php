@@ -23,7 +23,7 @@ class Runner
      */
     public function __construct()
     {
-        $symfonyRoot = realpath(__DIR__.'/../../../..');
+        $symfonyRoot = realpath(__DIR__.'/../../../../../..');
         $config = $this->loadConfig($symfonyRoot);
 
         $urlMap = array();
@@ -44,7 +44,7 @@ class Runner
         if (!file_exists($aipConfig)) {
             throw new \Exception("No config file '{$aipConfig}' found");
         }
-        return \pakeYaml::loadFile($aipConfig);
+        return \Symfony\Component\Yaml\Yaml::parse($aipConfig);
     }
 
     private function addKernels(array $config)

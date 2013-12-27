@@ -19,7 +19,7 @@ class Application
      */
     public function __construct(array $config)
     {
-        require __DIR__ . "/../../../../app/{$config['kernelFile']}";
+        require __DIR__ . "/../../../../../../app/{$config['kernelFile']}";
         $kernelClass = "\\{$config['kernel']}";
         $this->kernel = new $kernelClass($config['environment'], $config['debug']);
         $this->kernel->loadClassCache();
