@@ -22,7 +22,7 @@
         "source": "https://github.com/bergie/MidgardAppServerBundle"
     },
     "require": {
-        "aip/aip": "0.9.*"
+        "aip/aip": "dev-master"
     },
     "autoload": {
         "psr-0": {
