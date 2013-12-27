@@ -24,6 +24,7 @@
     "require": {
         "aip/aip": "dev-master"
     },
+    "target-dir": "Midgard/AppServerBundle",
     "autoload": {
         "psr-0": {
             "Midgard\\AppServerBundle": ""
