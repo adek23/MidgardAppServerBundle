@@ -31,7 +31,7 @@ class Runner
         $urlMap['/favicon.ico'] = function($ctx) { return array(404, array(), ''); };
 
         $urlMap = array_merge($urlMap, $this->addKernels($config));
-        $urlMap = array_merge($urlMap, $this->addFileServers("{$symfonyRoot}/web")); 
+//        $urlMap = array_merge($urlMap, $this->addFileServers("{$symfonyRoot}/web"));
 
         $map = new URLMap($urlMap);
 
@@ -55,11 +55,13 @@ class Runner
         }
 
         foreach ($config['symfony.kernels'] as $kernel) {
-            $app = new Application($kernel);
+			$loader = require_once __DIR__.'/../../../../../../app/bootstrap.php.cache';
+
+			$app = new Application($kernel);
             $this->kernels[] = $app->getKernel();
             $urlMap[$kernel['path']] = new HTTPParser(new Session($app));
         }
-
+//print_r($urlMap);
         return $urlMap;
     }
 

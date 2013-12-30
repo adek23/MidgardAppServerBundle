@@ -2,7 +2,7 @@
 namespace Midgard\AppServerBundle\AiP;
 
 use Symfony\Component\HttpFoundation\Request;
-use Midgard\AppServerBundle\AiP\SessionStorage\AiPSessionStorage; 
+use Midgard\AppServerBundle\AiP\SessionStorage\AiPSessionStorage;
 
 class Application
 {
@@ -21,8 +21,13 @@ class Application
     {
         require __DIR__ . "/../../../../../../app/{$config['kernelFile']}";
         $kernelClass = "\\{$config['kernel']}";
-        $this->kernel = new $kernelClass($config['environment'], $config['debug']);
+
+		$this->kernel = new $kernelClass($config['environment'], $config['debug']);
+		if ($config['debug']) {
+			\Symfony\Component\Debug\Debug::enable();
+		}
         $this->kernel->loadClassCache();
+		Request::enableHttpMethodParameterOverride();
         $this->kernel->boot();
         $this->prefix = $config['path'];
     }
@@ -47,7 +52,7 @@ class Application
             $session->setContext($context);
         }
 
-        $response = $this->kernel->handle($request);
+		$response = $this->kernel->handle($request);
 
         foreach ($response->headers->getCookies() as $cookie) {
             $context['_COOKIE']->setcookie($cookie->getName(), $cookie->getValue(), $cookie->getExpiresTime(), $cookie->getPath(), $cookie->getDomain(), $cookie->isSecure(), $cookie->isHttpOnly());
